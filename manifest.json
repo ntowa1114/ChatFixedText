@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "ChatFixedText - Twitch 定型文入力",
+  "description": "Twitch チャットで登録済みの定型文を予測変換のように素早く入力できます。",
+  "content_scripts": [
+    {
+      "matches": ["https://www.twitch.tv/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

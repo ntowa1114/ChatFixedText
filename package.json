@@ -1,0 +1,20 @@
+{
+  "name": "chatfixedtext",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Twitch チャットで定型文を予測変換のように入力できる Chrome 拡張機能",
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "watch": "vite build --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.3",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.1",
+    "vitest": "^5.0.3"
+  }
+}

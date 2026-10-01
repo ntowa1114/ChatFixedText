@@ -1,0 +1,14 @@
+[
+  { "id": "otsukare", "text": "お疲れ様です！", "keywords": ["otu", "otsu", "otsukare", "おつ", "おつかれ"] },
+  { "id": "konbanwa", "text": "こんばんは～", "keywords": ["kon", "konban", "こんばん", "ばんわ"] },
+  { "id": "konnichiwa", "text": "こんにちは！", "keywords": ["konni", "konnichiwa", "こんにちは"] },
+  { "id": "clap", "text": "8888888", "keywords": ["88", "pachi", "ぱち", "はくしゅ"] },
+  { "id": "uow", "text": "うおw", "keywords": ["uo", "うお"] },
+  { "id": "ehehe", "text": "えへへ", "keywords": ["ehehe", "えへ"] },
+  { "id": "kusa", "text": "草", "keywords": ["kusa", "くさ", "www"] },
+  { "id": "nice", "text": "ナイス～！", "keywords": ["nice", "naisu", "ないす"] },
+  { "id": "gg", "text": "GG！", "keywords": ["gg", "goodgame"] },
+  { "id": "kawaii", "text": "かわいい！", "keywords": ["kawa", "kawaii", "かわ"] },
+  { "id": "otsukare-mata", "text": "お疲れ様でした！また来ます！", "keywords": ["otumata", "mata", "またね"] },
+  { "id": "welcome", "text": "初見です！よろしくお願いします！", "keywords": ["shoken", "syoken", "しょけん", "初見"] }
+]
