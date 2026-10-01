@@ -1,6 +1,6 @@
 {
   "name": "chatfixedtext",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Twitch チャットで定型文を予測変換のように入力できる Chrome 拡張機能",
   "type": "module",

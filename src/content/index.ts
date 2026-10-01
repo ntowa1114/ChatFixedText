@@ -5,8 +5,8 @@ import { debugLog } from './debug';
 import { createMatcher, resolveQuery, type Candidate } from './matcher';
 import { SuggestionPopup, type Theme } from './popup';
 
-/** 候補を出し始める最小文字数（1 文字だと Enter での送信を誤って横取りしやすいため 2） */
-const MIN_QUERY_LENGTH = 2;
+/** 候補を出し始める最小文字数（1 文字のときはキーワード完全一致のみ。matcher.ts の SHORT_QUERY_LENGTH 参照） */
+const MIN_QUERY_LENGTH = 1;
 /** 二重読み込み防止用のマーカー */
 const LOADED_MARKER = 'chatfixedtextLoaded';
 

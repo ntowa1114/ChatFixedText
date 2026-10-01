@@ -25,6 +25,12 @@ export interface MatcherOptions {
 
 export const DEFAULT_LIMIT = 8;
 
+/**
+ * この文字数未満のクエリでは、キーワードとの完全一致だけを候補にする。
+ * 1 文字から前方一致で候補を出すと、短い発言を Enter で送ろうとしたときに確定キーを奪いやすいため。
+ */
+export const SHORT_QUERY_LENGTH = 2;
+
 const KATAKANA = /[ァ-ヶ]/g;
 
 /**
@@ -58,7 +64,8 @@ function classify(target: string, query: string): MatchKind | null {
  * 定型文リストから検索関数を作る。正規化済みの値を事前計算しておく。
  *
  * 優先順位: 完全一致 > 前方一致 > 部分一致。同順位は phrases.json の並び順。
- * 入力がすでに定型文の本文と同じ場合、その定型文は候補に出さない（確定済みとみなす）。
+ * 入力がすでに定型文の本文とまったく同じ場合、その定型文は候補に出さない（確定済みとみなす）。
+ * 1 文字の入力ではキーワードの完全一致だけを候補にする（SHORT_QUERY_LENGTH）。
  */
 export function createMatcher(phrases: readonly Phrase[], options: MatcherOptions = {}) {
   const limit = options.limit ?? DEFAULT_LIMIT;
@@ -70,12 +77,15 @@ export function createMatcher(phrases: readonly Phrase[], options: MatcherOption
   }));
 
   return function match(rawQuery: string): Candidate[] {
-    const query = normalize(rawQuery.trim());
+    const trimmed = rawQuery.trim();
+    const query = normalize(trimmed);
     if (query === '') return [];
+    const exactOnly = [...query].length < SHORT_QUERY_LENGTH;
 
     const hits: (Candidate & { order: number })[] = [];
     for (const entry of index) {
-      if (entry.text === query) continue;
+      // 正規化前の文字列で比較する（"の" と入力して "ノ" に変換したい場合などがあるため）
+      if (entry.phrase.text === trimmed) continue;
 
       let best: { kind: MatchKind; keyword: string | null } | null = null;
       for (const keyword of entry.keywords) {
@@ -89,7 +99,7 @@ export function createMatcher(phrases: readonly Phrase[], options: MatcherOption
         best = { kind: textKind, keyword: null };
       }
 
-      if (best !== null) {
+      if (best !== null && (!exactOnly || best.kind === MatchKind.Exact)) {
         hits.push({ phrase: entry.phrase, kind: best.kind, matchedKeyword: best.keyword, order: entry.order });
       }
     }

@@ -76,6 +76,22 @@ describe('createMatcher', () => {
     expect(ids(match('えへへ'))).toEqual([]);
   });
 
+  it('1 文字の入力ではキーワードの完全一致だけを候補にする', () => {
+    const match2 = createMatcher([
+      { id: 'no', text: 'ノ', keywords: ['の'] },
+      { id: 'nonderi', text: 'ノンデリ', keywords: [] },
+      { id: 'a', text: 'あ', keywords: [] },
+      { id: 'abuna', text: 'あっぶな', keywords: [] },
+    ]);
+    // "の" と打って "ノ" に変換できる（カタカナ/ひらがなを同一視しても本文と同じとはみなさない）
+    expect(ids(match2('の'))).toEqual(['no']);
+    // 前方一致の "あっぶな" は 1 文字では出さず、本文と同じ "あ" も出さない
+    expect(ids(match2('あ'))).toEqual([]);
+    // 2 文字以上なら前方一致も出る
+    expect(ids(match2('あっ'))).toEqual(['abuna']);
+    expect(ids(match2('のん'))).toEqual(['nonderi']);
+  });
+
   it('一致しなければ空', () => {
     expect(match('zzz')).toEqual([]);
   });
